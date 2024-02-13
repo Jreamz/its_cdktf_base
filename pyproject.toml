@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "its_cdktf_base"
+version = "1.0.28"
+description = ""
+authors = []
+
+[tool.poetry.dependencies]
+python = "^3.10"
+cdktf = "0.20.3"
+cdktf-cdktf-provider-azurerm = "12.3.0"
+twine = "^4.0.2"
+keyring = "^24.2.0"
+artifacts-keyring = "^0.3.3"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.10.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

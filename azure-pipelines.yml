@@ -1,0 +1,41 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+  - main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: 3.10
+    displayName: 'Use Python $(python.version)'
+
+  - script: |
+      python -m pip install --upgrade pip
+      pip install poetry
+      pip install twine
+      pip install keyring
+      pip install artifacts-keyring
+    displayName: 'Install dependencies'
+
+  - script: |
+      poetry cache clear --all
+      poetry update
+      poetry install --only main
+      poetry build
+    displayName: 'Version and build'
+
+  - task: TwineAuthenticate@1
+    inputs:
+      artifactFeed: 'its_cdktf_base/its-cdktf-base'
+      pythonUploadServiceConnection: ItsCdktfBaseUpload
+    displayName: 'Twine authenticate'
+
+  - script: |
+      python -m twine upload -r "ItsCdktfBaseUpload" --config-file $(PYPIRC_PATH) dist/*
+    displayName: 'Upload package'

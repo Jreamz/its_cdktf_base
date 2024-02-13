@@ -1,0 +1,13 @@
+{
+  "language": "python",
+  "app": "poetry run python main.py",
+  "packageManager": "poetry",
+  "projectId": "133b9da1-fcd3-4063-a2eb-921c9b0ab0cb",
+  "sendCrashReports": "true",
+  "terraformProviders": ["azurerm@~> 3.10"],
+  "terraformModules": [],
+  "codeMakerOutput": "imports",
+  "context": {
+
+  }
+}
